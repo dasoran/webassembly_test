@@ -1,12 +1,7 @@
 function main(wasm) {
-    const memory   = wasm.exports.memory;
-    const length   = wasm.exports.length;
-    const position = wasm.exports.position;
+    const result = wasm.exports.addTwo(1, 20);
 
-    const bytes = new Uint8Array(memory.buffer, position, length);
-    const s = new TextDecoder('utf8').decode(bytes);
-
-    console.log(s);
+    console.log(result);
 }
 
 WebAssembly.instantiateStreaming(fetch("main.wasm"), {})
