@@ -57,7 +57,7 @@ localhost:8000
   - CPUと同じように分岐予測等のパイプラインストールを念頭にコーディングするのとは違う前提で実装する必要がある
 - サブルーチンコールについて
   - サブルーチンコールを削減した実装: https://github.com/qramana/webassembly_test/blob/9d3ce53ef3f4f538568cf3c00425affdc6c2b13b/main.wat
-  - サブルーチンコールを残した実装: https://github.com/qramana/webassembly_test/blob/c967ccc3ffde15739bf87035bd6c1d1fe57caa12/main.wat
+  - サブルーチンコールを残した実装: https://github.com/qramana/webassembly_test/blob/e04a574ef3007fef9e178df4765dc997d9f7d684/main.wat
   - 計算処理のループ回数: 4000回(1回の計算) * 100回 = 400000ループ
   - 実装間のサブルーチンコール数
     - 削減済み: 0
@@ -65,3 +65,14 @@ localhost:8000
   - 実行時間
     - 削減済み: 3.4s
     - 未削減: 13.6s
+  - 参考: ループ比較
+    - 計算せずループのみ: 0.9s
+      - 比較のためのループのみのコストの計測
+    - 計算せずループ中4回jmp: 5.0s
+      - callとjmpの実行コストが異なることを確認するための空loop*4
+    - 計算せずループ中4回call: 10.7s
+      - 空call*4
+  - 参考: メモリアクセスコストの検証
+    - 計算せずループのみ: 0.9s
+    - 計算せずループ中4回メモリアクセス: 1.5s
+      - 厳密にはアクセスしてローカル変数に保存

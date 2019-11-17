@@ -27,16 +27,18 @@
                         (i32.add (get_local $j) (i32.mul (get_local $i) (get_local $len)))
                     )
                 (i32.const 1)))
-                (set_local $x_real (f64.load (call $f64_addr (get_local $x_ptr))))
+                (set_local $x_real (f64.load (i32.shl (get_local $x_ptr) (i32.const 3))))
                 (set_local $x_im
-                    (f64.load (call $f64_addr
+                    (f64.load (i32.shl
                         (i32.add (get_local $x_ptr) (i32.const 1))
+                        (i32.const 3)
                     ))
                 )
-                (set_local $y_real (f64.load (call $f64_addr (get_local $y_ptr))))
+                (set_local $y_real (f64.load (i32.shl (get_local $y_ptr) (i32.const 3))))
                 (set_local $y_im
-                    (f64.load (call $f64_addr
+                    (f64.load (i32.shl
                         (i32.add (get_local $y_ptr) (i32.const 1))
+                        (i32.const 3)
                     ))
                 )
                 (set_local $real
