@@ -37,6 +37,27 @@ localhost:8000
 - 結論
   - WebAssemblyで処理すると3倍程度高速化が見込める
 
+## WebAssemblyを採用するにあたって
+- データの渡し方が特殊なので、その点を考慮する必要がある
+  - 以下のように、特定のデータ(メモリ空間)に直でデータを流し込む必要がある
+  - 引数では単一の数字しか渡せない
+  - https://github.com/qramana/webassembly_test/blob/7bfebb1713c1d1ca6949326b49aec667f0c659c4/play.js
+```
+    let fMemory = new Float64Array(memory.buffer);
+
+    let o_mat = bit * 2 * 2;
+    let o_ret = bit * 2;
+
+    for (let i = 0; i < bit; i++) {
+        fMemory[o_ret + i * 4]      = 0.00000000000000001;
+        fMemory[o_ret + i * 4 + 1]  = 0.00000000000000001;
+        fMemory[o_ret + i * 4 + 2]  = 0.00000000000000001;
+        fMemory[o_ret + i * 4 + 3]  = 0.00000000000000001;
+    }
+```
+- 詳細は以下に記述するものの、現状性能を出すためにはボトルネックを把握して性能が出る記述方法を行う必要がある
+- 適切に使えば十分高速化が見込める技術と言える
+
 ## WebAssemblyについて
 ### 構造
 - 基本的にはただのVM
