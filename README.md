@@ -68,11 +68,16 @@ localhost:8000
   - 参考: ループ比較
     - 計算せずループのみ: 0.9s
       - 比較のためのループのみのコストの計測
+      - https://github.com/qramana/webassembly_test/blob/3d7da18ecfc4900135f7c8a29e250028501d3d74/only_loop_sample.wat
     - 計算せずループ中4回jmp: 5.0s
       - callとjmpの実行コストが異なることを確認するための空loop*4
+      - https://github.com/qramana/webassembly_test/blob/3d7da18ecfc4900135f7c8a29e250028501d3d74/loop_sample.wat
     - 計算せずループ中4回call: 10.7s
       - 空call*4
+      - https://github.com/qramana/webassembly_test/blob/3d7da18ecfc4900135f7c8a29e250028501d3d74/call_sample.wat
   - 参考: メモリアクセスコストの検証
     - 計算せずループのみ: 0.9s
     - 計算せずループ中4回メモリアクセス: 1.5s
       - 厳密にはアクセスしてローカル変数に保存
+      - https://github.com/qramana/webassembly_test/blob/3d7da18ecfc4900135f7c8a29e250028501d3d74/load_j_sample.wat
+      - https://github.com/qramana/webassembly_test/blob/3d7da18ecfc4900135f7c8a29e250028501d3d74/load_same_sample.wat
